@@ -1,9 +1,6 @@
 from django.contrib import admin
 from recipes import models
 
-admin.site.register(models.TagsInRecipe)
-admin.site.register(models.IngredientInRecipe)
-
 
 @admin.register(models.Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
@@ -14,7 +11,7 @@ class IngredientAdmin(admin.ModelAdmin):
         'name',
     )
     list_filter = (
-        'name',
+        'measurement_unit',
     )
 
 
@@ -37,7 +34,7 @@ class RecipeAdmin(admin.ModelAdmin):
         'name', 'author__username'
     )
     list_filter = (
-        'name', 'author__username'
+        'tags',
     )
 
 
@@ -59,6 +56,9 @@ class FavoriteAdmin(admin.ModelAdmin):
     search_fields = (
         'user__username', 'recipe__name'
     )
+    list_filter = (
+        'recipe__tags',
+    )
 
 
 @admin.register(models.ShoppingCart)
@@ -67,5 +67,43 @@ class CartAdmin(admin.ModelAdmin):
         'user', 'recipe'
     )
     search_fields = (
-        'user__username', 'recipe__name'
+        'user__username',
+        'user__email',
+        'recipe__name'
+    )
+
+    list_filter = (
+        'recipe__tags',
+    )
+
+
+@admin.register(models.IngredientInRecipe)
+class IngredientInRecipeAdmin(admin.ModelAdmin):
+    list_display = (
+        'ingredient', 'recipe', 'amount',
+    )
+    search_fields = (
+        'recipe__author__email',
+        'recipe__author__username',
+        'recipe__name',
+        'ingredient__name',
+
+    )
+    list_filter = (
+        'recipe__tags',
+    )
+
+
+@admin.register(models.TagsInRecipe)
+class TagsInRecipeAdmin(admin.ModelAdmin):
+    list_display = (
+        'recipe', 'tag'
+    )
+    search_fields = (
+        'recipe__author__email',
+        'recipe__author__username',
+        'recipe__name'
+    )
+    list_filter = (
+        'tag',
     )

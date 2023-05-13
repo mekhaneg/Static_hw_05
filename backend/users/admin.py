@@ -4,9 +4,6 @@ from django.contrib.admin import register
 from users import models
 
 
-admin.site.register(models.Follow)
-
-
 @register(models.User)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
@@ -20,6 +17,13 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = (
         'username', 'email',
     )
-    list_filter = (
-        'first_name', 'email',
+
+
+@register(models.Follow)
+class FollowAdmin(admin.ModelAdmin):
+    search_fields = (
+        'user__username',
+        'user__email',
+        'following__username',
+        'following__email',
     )

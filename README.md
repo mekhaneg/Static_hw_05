@@ -37,7 +37,14 @@ cd infra
 в файле backend/backend/settings.py вснести в список ALLOWE_HOSTS адрес удаленного сервера
 ```
 
-из директории infra Запустить контейнеры:
+из директории infra Запустить контейнеры, выполнив команды:
+
+```
+chmod +x init-letsencrypt.sh
+```
+```
+sudo ./init-letsencrypt.sh
+```
 
 ```
 docker-compose up -d --build 
@@ -76,5 +83,5 @@ python3 manage.py create_db
 
 ```
 Проект будет доступен по адресу:
-http://158.160.23.212/
+https://oladushki-unadushki.ddns.net/
 ```
